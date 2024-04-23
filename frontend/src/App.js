@@ -167,6 +167,7 @@ class App extends React.Component {
               type="text"
               value={this.state.taskdescription}
               onChange={this.handleChange}
+              id='taskInput'
             />
             <button type="submit">Absenden</button>
           </form>

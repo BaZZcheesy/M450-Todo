@@ -1,6 +1,9 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from './App';
+import { WebDriver } from 'selenium-webdriver';
+const { Builder, By, Key, until } = require('selenium-webdriver')
+
 
 test('renders ToDo Liste title', () => {
   render(<App />);
@@ -25,15 +28,33 @@ test('renders input field', () => {
   expect(inputElement).toBeInTheDocument();
 });
 
-const { Builder, By, Key, until } = require('selenium-webdriver');
+test( 'Access localhost:3000', async () => {
+  let driver = await new Builder().forBrowser('chrome').build();
+  try {
+      await driver.get('http://localhost:3000');
+  } finally {
+      await driver.quit();
+  }
+})
 
-async function exampleTest() {
-    let driver = await new Builder().forBrowser('firefox').build();
-    try {
-        await driver.get('http://your-react-app-url');
-        await driver.findElement(By.id('your-element-id')).sendKeys('Test Input', Key.RETURN);
-        await driver.wait(until.titleIs('Expected Title'), 10000);
-    } finally {
-        await driver.quit();
-    }
-}
+test( 'Delete multiple', async () => {
+  let driver = await new Builder().forBrowser('chrome').build();
+  try {
+    await driver.get("http://localhost:3000/")
+    await driver.manage().window().setRect({ width: 938, height: 824 })
+    await driver.findElement(By.css("input")).click()
+    await driver.findElement(By.css("input")).sendKeys("Hello")
+    await driver.findElement(By.css("input")).sendKeys(Key.ENTER)
+    await driver.findElement(By.css("input")).click()
+    await driver.findElement(By.css("input")).sendKeys("Welcome")
+    await driver.findElement(By.css("input")).sendKeys(Key.ENTER)
+    await driver.findElement(By.css("input")).click()
+    await driver.findElement(By.css("input")).sendKeys("Bye")
+    await driver.findElement(By.css("input")).sendKeys(Key.ENTER)
+    await driver.findElement(By.css("li:nth-child(1) > button")).click()
+    await driver.findElement(By.css("li:nth-child(1) > button")).click()
+    await driver.findElement(By.css("button:nth-child(1)")).click()
+  } finally {
+    await driver.quit();
+  }
+})

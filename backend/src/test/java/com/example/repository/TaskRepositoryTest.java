@@ -1,4 +1,4 @@
-package com.example.demo.repository;
+package com.example.repository;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -9,7 +9,7 @@ import com.example.models.Task;
 import com.example.repository.TaskRepository;
 
 @DataJpaTest
-public class RepositoryTest {
+public class TaskRepositoryTest {
     
     @Autowired
     private TaskRepository taskRepository;
